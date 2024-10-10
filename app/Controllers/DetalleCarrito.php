@@ -5,21 +5,21 @@ namespace App\Controllers;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 
-class Productos extends ResourceController
+class DetalleCarrito extends ResourceController
 {
-    protected $modelName = "App\Models\ProductosModel";
+    protected $modelName = "App\Models\DetalleCarritoModel";
     protected $format = "json";
 
     public function index()
     {
-        $productos = $this->model->findAll();
-        return $this->respond($productos);
+        $usuarios = $this->model->findAll();
+        return $this->respond($usuarios);
     }
-    public function show($id_producto = null)
+    public function show($id_detalle = null)
     {
-        $productos = $this->model->find($id_producto);
-        if ($productos) {
-            return $this->respond($productos);
+        $usuarios = $this->model->find($id_detalle);
+        if ($usuarios) {
+            return $this->respond($usuarios);
         }
         return $this->failNotFound(description: "Producto no encontrado");
     }
@@ -31,23 +31,23 @@ class Productos extends ResourceController
         }
         return $this->failNotFound(description: "Producto no se puede almacenar");
     }
-    public function update($id_producto = null)
+    public function update($id_detalle = null)
     {
-        $productos = $this->model->find($id_producto);
-        if (!$productos) {
+        $usuarios = $this->model->find($id_detalle);
+        if (!$usuarios) {
             return $this->failNotFound( "Producto no se puede actualizar, verifique datos");
         }
         $datos = $this->request->getJSON(true);
-        if ($this->model->update($id_producto, $datos)) {
+        if ($this->model->update($id_detalle, $datos)) {
             return $this->respondUpdated($datos, "Producto actualizado");
         }
         return $this->failNotFound("Producto no se encontrado");
     }
-    public function delete($id_producto = null)
+    public function delete($id_detalle = null)
     {
-        if ($this->model->find($id_producto)) {
-            $this->model->delete($id_producto);
-            return $this->respondDeleted(["id" => $id_producto], "Producto eliminado");
+        if ($this->model->find($id_detalle)) {
+            $this->model->delete($id_detalle);
+            return $this->respondDeleted(["id" => $id_detalle], "Producto eliminado");
         }
         return $this->failNotFound("Producto no se puede eliminar");
     }
